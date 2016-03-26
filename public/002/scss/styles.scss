@@ -1,0 +1,220 @@
+// fonts
+@import url(https://fonts.googleapis.com/css?family=PT+Mono|Montserrat:700,400);
+
+// colors
+$background: #a3ffe1;
+$text: #303132;
+$light: lighten($text,50%);
+$accent: #40edd3;
+$invalid: #EF3535;
+$input-outline: white;
+
+// sizing
+$rhythm: .75rem;
+$card-ratio: .627;
+
+// elements
+*,*::before,*::after {
+  box-sizing: border-box;
+}
+body {
+  background: $background linear-gradient(to bottom right, $background, $accent);
+  color: $text;
+}
+input {
+  font: inherit;
+  color: inherit;
+  padding: 0;
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+button {
+  appearance: none;
+  padding: $rhythm $rhythm * 2;
+  color: $text;
+  background: linear-gradient(to top right, #E9FFFC, #CCD3D3);
+  background-size: 200% 200%;
+  background-position: 100% 0;
+  border: none;
+  font-weight: bold;
+  transition: all .3s;
+  font-variant: small-caps;
+  letter-spacing: .02em;
+  &:hover {
+    background-position: 0 100%;
+    transform: scale(1.05);
+  }
+}
+h1 {
+  margin: 0 0 $rhythm * 4;
+  font: small-caps 600 2rem/1.5 "Montserrat",sans-serif;
+  letter-spacing: .02em;
+}
+
+// card
+.card__container {
+  margin: $rhythm * 8 auto;
+  padding: 0 $rhythm;
+  max-width: 600px;
+  filter: drop-shadow(1px 1px 20px rgba(black,.5));
+  perspective: 1000px;
+}
+.card {
+  position: relative;
+  padding-top: $card-ratio * 100%;
+  height: 0;
+  background: url('../images/credit-card-bg.svg');
+  font: 1rem/1 "PT Mono",serif;
+  transform: rotateY(20deg);
+  transform-style: preserve-3d;
+  .field, .card-type {
+    position: absolute;
+  }
+}
+.field {
+  padding: $rhythm * 2.5 $rhythm $rhythm;
+  margin-top: $rhythm * -2.5;
+  input {
+    //color: rgba(#D5E1E0,.5);
+    -webkit-text-fill-color: rgba(#D5E1E0,.5);
+    text-shadow: -2px 0 1px rgba(white,.4), 0 -2px 1px rgba(white,.6), 2px 0 1px rgba(black,.4), 0 2px 1px rgba(black,.6);
+    text-transform: uppercase;
+
+    &:hover + label {
+      &::before, &::after {
+        transform: translateZ(65px);
+        border-color: $background;
+      }
+    }
+    &:focus + label {
+      &::before, &::after {
+        transform: none;
+        border-color: $accent;
+      }
+    }
+    &.touched:invalid + label {
+      &::before, &::after {
+        border-color: $invalid;
+      }
+    }
+  }
+  label {
+    font-family: "Montserrat",sans-serif;
+    font-size: 13px;
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    padding: $rhythm;
+    cursor: text;
+    pointer-events: none;
+
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      border: 2px solid $input-outline;
+      transform: translateZ(60px);
+      transition: all .3s;
+    }
+  }
+}
+.card-num {
+  top: 50%; left: 3%;
+  width: 94%;
+  font-size: 2.75rem;
+  @media only screen and (max-width: 36em) {
+    font-size: 2.25rem;
+  }
+  @media only screen and (max-width: 31em) {
+    font-size: 1.25rem;
+  }
+}
+.name {
+  left: 3%;
+  bottom: 3%;
+  font-size: 1.5rem;
+  width: 47%;
+  @media only screen and (max-width: 31em) {
+    font-size: 1rem;
+  }
+}
+.expiration {
+  left: 53%;
+  bottom: calc(3% + .5rem);
+  width: $rhythm * 8;
+}
+.card-type {
+  bottom: 3%;
+  right: 3%;
+  width: 20%;
+
+  input {
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: -99;
+  }
+}
+.card-type__logo {
+  display: none;
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 100%;
+  height: 0;
+  padding-top: 50%;
+  background: transparent center center no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  font-size: 0;
+
+  &.visa {
+    background-color: white;
+    background-image: url(../images/visa-logo.svg);
+  }
+  &.mastercard {
+    background-image: url(../images/mastercard-logo.svg);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    border: 2px solid $input-outline;
+    transform: translateZ(30px);
+    transition: all .3s;
+  }
+  &:hover::before {
+    border-color: $background;
+    transform: translateZ(35px);
+  }
+
+  :checked + & {
+    display: block;
+  }
+}
+
+.csv {
+  position: relative;
+  float: right;
+  width: 5rem;
+  margin-top: 0;
+  font-size: 1.5rem;
+  input {
+    text-shadow: none;
+    -webkit-text-fill-color: inherit;
+    transform: skewX(8deg);
+    text-align: right;
+    color: lighten($text,10%);
+  }
+  transform: rotateY(-4deg);
+}
+
+.submit {
+  clear: both;
+  text-align: center;
+}
+
+::-webkit-input-placeholder {
+  color: #D8E5E4;
+}

@@ -1,0 +1,36 @@
+<!-- 002: Credit Card Form -->
+<form action="javascript:alert('submit')" class="form-credit">
+  <div class="card__container">
+    <h1>Payment Info</h1>
+    <div class="card" id="card">
+      <div class="field card-num">
+        <input id="card_num" required pattern="(\d{4}\s?){4}" placeholder="0000 0000 0000 0000" maxlength="19">
+        <label for="card_num">Card Number</label>
+      </div>
+      <div class="field name">
+        <input id="name" required placeholder="John Doe">
+        <label for="name">Full Name</label>
+      </div>
+      <div class="field expiration">
+        <input id="expiration" required placeholder="12/16" pattern="\d{1,2}/\d{2}">
+        <label for="expiration">Expiration</label>
+      </div>
+      <div class="card-type">
+        <input type="radio" name="card_type" value="visa" id="card_type_visa" checked>
+        <label class="card-type__logo visa" for="card_type_mastercard">Visa</label>
+
+        <input type="radio" name="card_type" value="mastercard" id="card_type_mastercard">
+        <label class="card-type__logo mastercard" for="card_type_visa">Mastercard</label>
+      </div>
+    </div>
+
+    <div class="field csv">
+      <input id="csv" required pattern="\d{3}" placeholder="000" maxlength="3">
+      <label for="csv">CSV</label>
+    </div>
+
+    <div class="field submit">
+      <button class="btn-submit">Finalize Purchase</button>
+    </div>
+  </div>
+</form>
