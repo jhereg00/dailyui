@@ -24,6 +24,20 @@ for (var i = 0, len = playerTypeEls.length; i < len; i++) {
         containerEl.classList.remove(playerTypeEls[j].value)
       }
     }
-    containerEl.classList.add(this.value)
+    containerEl.classList.add(this.value);
+
+    // goalie form changes
+    if (this.value === 'goalie') {
+      field_credit.disabled = true;
+      field_credit.required = false;
+      field_csv.disabled = true;
+      field_csv.required = false;
+    }
+    else {
+      field_credit.disabled = false;
+      field_credit.required = true;
+      field_csv.disabled = false;
+      field_csv.required = true;
+    }
   });
 }
