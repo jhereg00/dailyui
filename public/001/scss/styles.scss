@@ -1,0 +1,294 @@
+// fonts
+@import url(https://fonts.googleapis.com/css?family=Audiowide|Roboto:400);
+
+// colors
+$background: #0d1011;
+$container: white;
+$text: #303132;
+$light: lighten($text,50%);
+$accent: #85b0d1;
+$accent-dark: #2c5d82;
+$invalid: #b70606;
+
+// sizing
+$rhythm: .75rem;
+
+// mixins
+@mixin colspan ($count, $gutter: $rhythm * 2) {
+  float: left;
+  width: calc(#{$count / 12 * 100%} - #{$gutter});
+  margin-left: $gutter / 2;
+  margin-right: $gutter / 2;
+}
+@mixin colpush ($count, $gutter: $rhythm * 2) {
+  margin-left: calc(#{$count / 12 * 100%} - #{$gutter / 2});
+}
+@mixin medium-screen {
+  @media only screen and (min-width: 880px) {
+    @content;
+  }
+}
+@mixin large-screen {
+  @media only screen and (min-width: 1200px) {
+    @content;
+  }
+}
+
+// elements
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+body {
+  background: $background;
+  font: 400 1rem/#{$rhythm * 2} Roboto, sans-serif;
+  color: $text;
+  box-sizing: border-box;
+}
+h1 {
+  font: 400 3rem/#{$rhythm * 5} Audiowide, sans-serif;
+  margin: 0 0 $rhythm * 2;
+  color: $accent-dark;
+}
+label {
+  display: block;
+}
+input {
+  display: block;
+  width: 100%;
+  padding: $rhythm / 2 $rhythm;
+  font: inherit;
+  background: transparent;
+  border: 1px solid $light;
+  &:focus {
+    border-color: $accent;
+  }
+  &.touched:invalid {
+    border-color: $invalid;
+    background: rgba($invalid,.15);
+  }
+}
+button {
+  appearance: none;
+  display: block;
+  width: 100%;
+  padding: $rhythm $rhythm * 3;
+  background: $accent-dark;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  font-family: Audiowide, sans-serif;
+  &:hover {
+    background: mix($accent,$accent-dark,25%);
+  }
+  &:active {
+    background: $accent-dark;
+  }
+
+  @include large-screen {
+    float: right;
+    width: auto;
+  }
+}
+
+// clearfix
+%clearfix {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+// grid container
+.grid-container {
+  @extend %clearfix;
+  padding: $rhythm $rhythm $rhythm * 10;
+  max-width: 75rem;
+  margin: 0 auto;
+}
+
+// signup card
+.signup__container {
+  @include colspan (12);
+  position: relative;
+  margin-top: $rhythm * 8;
+  padding: $rhythm * 4 $rhythm * 2;
+  border-radius: $rhythm;
+  background: $container;
+  transition: padding .3s ease-in-out, margin .3s ease-in-out;
+  @include medium-screen {
+    @include colspan (8);
+    padding-right: $rhythm * 10;
+    &.goalie {
+      @include colpush (4);
+      padding-right: $rhythm * 2;
+      padding-left: $rhythm * 10;
+    }
+  }
+  @include large-screen {
+    @include colspan (6);
+    @include colpush (1);
+  }
+
+  // reflection
+  &::before {
+    content: '';
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    height: $rhythm * 6;
+    margin-top: $rhythm * 2;
+    border-radius: $rhythm $rhythm 0 0;
+    background: linear-gradient(to bottom, $container, rgba($container, 0));
+    opacity: .3;
+    z-index: -1;
+    // transform-origin: center $rhythm * -2;
+    // transform: perspective(500px) rotateX(60deg);
+  }
+  // shadow
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%; left: $rhythm * -1; right: $rhythm * -1;
+    margin-top: $rhythm * -1;
+    height: $rhythm * 4;
+    background: radial-gradient(black, rgba(black, 0)) center center no-repeat;
+    background-size: 100% 100%;
+    opacity: .5;
+    z-index: -1;
+    filter: blur(6px);
+  }
+}
+.signup {
+  @include medium-screen {
+    padding: 0 $rhythm * 2;
+
+    // skater
+    &::before {
+      content: '';
+      position: absolute;
+      top: $rhythm * -3; bottom: $rhythm * -1; left: calc(100% - #{$rhythm * 21});
+      width: 999px; // blow out right
+      z-index: 2;
+      background: url('../images/skater-silhouette.svg') left center no-repeat;
+      background-size: contain;
+      pointer-events: none;
+      filter: drop-shadow(-2px 3px 7px rgba($background,.25));
+      transition: transform .3s ease-out, opacity .3s linear;
+
+      .goalie & {
+        opacity: 0;
+        transition-timing-function: ease-in;
+        transform: translateX(#{$rhythm * 20});
+      }
+    }
+    // goalie
+    &::after {
+      content: '';
+      position: absolute;
+      top: $rhythm * 18; bottom: $rhythm * -8; right: calc(100% - #{$rhythm * 14});
+      width: 999px; // blow out right
+      z-index: 2;
+      background: url('../images/goalie-silhouette.svg') right center no-repeat;
+      background-size: contain;
+      pointer-events: none;
+      filter: drop-shadow(2px 3px 7px rgba($background,.25));
+      opacity: 0;
+      transform: translateX(#{$rhythm * -20});
+      transition: transform .3s ease-out, opacity .3s linear;
+
+      .goalie & {
+        opacity: 1;
+        transition-timing-function: ease-in;
+        transform: none;
+      }
+    }
+  }
+}
+
+// fields
+.field {
+  position: relative;
+  margin: $rhythm / 2 0;
+  @include colspan (12, $rhythm);
+
+  &.space-above {
+    margin-top: $rhythm * 2;
+  }
+
+  @include medium-screen {
+    &.city, &.credit {
+      @include colspan (9, $rhythm);
+    }
+    &.state, &.csv {
+      @include colspan (3, $rhythm);
+    }
+    &.csv {
+      margin-top: $rhythm * 2;
+    }
+  }
+
+  label {
+    position: absolute;
+    top: $rhythm / 2; left: $rhythm;
+    transition: all .3s ease-in-out;
+    white-space: nowrap;
+    z-index: 1;
+  }
+
+  input {
+    //transition: padding-top .3s ease-in-out;
+    position: relative;
+    z-index: 2;
+    &:focus, &.has-value {
+      //padding-top: $rhythm * 1.5;
+
+      & + label {
+        left: 100%;
+        top: 50%;
+        color: $accent;
+        font-size: .8125rem;
+        transform: translate(-100%, -50%);
+        padding-right: $rhythm;
+      }
+    }
+    &.touched:invalid {
+      border-color: red;
+      & + label {
+        color: $invalid;
+      }
+    }
+  }
+}
+
+.toggle {
+  @extend %clearfix;
+  @include colspan (12, $rhythm);
+  margin-bottom: $rhythm * 2;
+}
+.toggle__option {
+  width: 50%;
+  float: left;
+  input {
+    opacity: 0;
+    position: absolute;
+    z-index: -99;
+
+    &:checked ~ label {
+      background-position: 100% 0;
+      color: white;
+    }
+  }
+  label {
+    padding: $rhythm / 2;
+    text-align: center;
+    cursor: pointer;
+    $bg-color: lighten($light,20%);
+    background: $bg-color linear-gradient(to right, $bg-color, $bg-color 50%, $accent-dark 50%, $accent-dark) no-repeat;
+    background-size: 200% 100%;
+    background-position: 0 0;
+    transition: background-position .3s, color .3s;
+  }
+  &:last-child label {
+    background-position: 200% 0;
+  }
+}

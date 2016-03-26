@@ -1,0 +1,54 @@
+<div class="grid-container">
+  <div class="signup__container">
+    <h1>Join League</h1>
+    <form action="javascript:alert('submit')" class="signup">
+      <div class="toggle">
+        <label>I am a:</label>
+        <div class="toggle__option">
+          <input type="radio" name="playertype" id="playertype--skater" checked value="skater">
+          <label for="playertype--skater">Skater</label>
+        </div>
+        <div class="toggle__option">
+          <input type="radio" name="playertype" id="playertype--goalie" value="goalie">
+          <label for="playertype--goalie">Goalie</label>
+        </div>
+      </div>
+      <div class="field">
+        <input type="text" class="field__input" id="field--name" required>
+        <label for="field--name" class="field__label">Full Name</label>
+      </div>
+      <div class="field space-above">
+        <input type="text" class="field__input" id="field--address1" required>
+        <label for="field--address1" class="field__label">Address</label>
+      </div>
+      <div class="field">
+        <input type="text" class="field__input" id="field--address2">
+        <label for="field--address2" class="field__label">Apartment, Suite, etc.</label>
+      </div>
+      <div class="field city">
+        <input type="text" class="field__input" id="field--city" required>
+        <label for="field--city" class="field__label">City</label>
+      </div>
+      <div class="field state">
+        <input type="text" class="field__input" id="field--state" maxlength="2" required>
+        <label for="field--state" class="field__label">State</label>
+      </div>
+      <div class="field">
+        <input type="text" class="field__input" id="field--zip" required pattern="\d{5}(-\d{4})?">
+        <label for="field--zip" class="field__label">Zip</label>
+      </div>
+      <div class="field space-above credit">
+        <input type="text" class="field__input" id="field--credit" required pattern="(\d{4}\s?){4}">
+        <label for="field--credit" class="field__label">Credit Card Number</label>
+      </div>
+      <div class="field csv">
+        <input type="text" class="field__input" id="field--csv" required pattern="\d{3}">
+        <label for="field--csv" class="field__label">CSV</label>
+      </div>
+
+      <div class="field space-above">
+        <button class="submit">Sign Up</button>
+      </div>
+    </form>
+  </div>
+</div>
