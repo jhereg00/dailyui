@@ -1,0 +1,31 @@
+$dark-bg: #2e5463;
+$light-bg: #fff9db;
+
+.switch-bg {
+  background: $dark-bg;
+  min-height: 100vh;
+  text-align: center;
+  &.lit {
+    background: $light-bg;
+  }
+}
+#switchInp {
+  position: absolute;
+  left: -9999px;
+  visibility: hidden;
+}
+.pull-string {
+  display: inline-block;
+  text-align: center;
+  margin: -2px auto 0 auto;
+  cursor: pointer;
+  filter: drop-shadow(3px 2px 3px rgba(0,0,0,.5));
+
+  .lit & {
+    filter: drop-shadow(100px 2px 1px rgba(0,0,0,.25));
+  }
+}
+canvas {
+  border: none;
+  outline: none;
+}
